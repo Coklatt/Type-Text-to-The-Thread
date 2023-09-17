@@ -1,0 +1,21 @@
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: SSH and deploy app
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          script: |-
+            cd Type-Text-to-The-Thread
+            git pull origin master
+            npm install
+            pm2 restart tttt
+          username: ${{ secrets.SSH_USERNAME }}
+name: Continuous Deployment
+'on':
+  push:
+    branches:
+      - master
