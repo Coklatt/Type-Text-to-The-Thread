@@ -8,12 +8,10 @@ const AddReplyUseCase = require('../../../../Applications/use_case/AddReplyUseCa
 const LikeUseCase = require('../../../../Applications/use_case/LikeUseCase');
 
 class ThreadsHandler extends Handler {
-    async postThreadHandler(request, h) {
+    async postThread(request, h) {
         const { id: owner } = request.auth.credentials;
 
-        const addThreadUseCase = this._container.getInstance(
-            AddThreadUseCase.name,
-        );
+        const addThreadUseCase = this._container.getInstance(AddThreadUseCase.name);
         const addedThread = await addThreadUseCase.execute({
             ...request.payload,
             owner,
@@ -31,14 +29,12 @@ class ThreadsHandler extends Handler {
         return response;
     }
 
-    async postCommentHandler(request, h) {
+    async postComment(request, h) {
         const { content } = request.payload;
         const { id: owner } = request.auth.credentials;
         const { threadId } = request.params;
 
-        const addCommentUseCase = this._container.getInstance(
-            AddCommentUseCase.name,
-        );
+        const addCommentUseCase = this._container.getInstance(AddCommentUseCase.name);
         const addedComment = await addCommentUseCase.execute({
             content,
             owner,
@@ -57,14 +53,12 @@ class ThreadsHandler extends Handler {
         return response;
     }
 
-    async postReplyHandler(request, h) {
+    async postReply(request, h) {
         const { content } = request.payload;
         const { id: owner } = request.auth.credentials;
         const { threadId, commentId } = request.params;
 
-        const addReplyUseCase = this._container.getInstance(
-            AddReplyUseCase.name,
-        );
+        const addReplyUseCase = this._container.getInstance(AddReplyUseCase.name);
         const addedReply = await addReplyUseCase.execute({
             content,
             owner,
@@ -84,11 +78,9 @@ class ThreadsHandler extends Handler {
         return response;
     }
 
-    async getThreadByIdHandler(requet, h) {
+    async getThreadById(requet, h) {
         const { threadId } = requet.params;
-        const getThreadDetailsUseCase = this._container.getInstance(
-            GetThreadDetailUseCase.name,
-        );
+        const getThreadDetailsUseCase = this._container.getInstance(GetThreadDetailUseCase.name);
         const thread = await getThreadDetailsUseCase.execute({ threadId });
 
         const response = h.response({
@@ -103,13 +95,11 @@ class ThreadsHandler extends Handler {
         return response;
     }
 
-    async deleteCommentByIdHandler(request, h) {
+    async deleteCommentById(request, h) {
         const { threadId, commentId } = request.params;
         const { id: owner } = request.auth.credentials;
 
-        const deleteCommentUseCase = this._container.getInstance(
-            DeleteCommentUseCase.name,
-        );
+        const deleteCommentUseCase = this._container.getInstance(DeleteCommentUseCase.name);
         await deleteCommentUseCase.execute({ threadId, commentId, owner });
 
         const response = h.response({
@@ -121,13 +111,11 @@ class ThreadsHandler extends Handler {
         return response;
     }
 
-    async deleteReplyByIdHandler(request, h) {
+    async deleteReplyById(request, h) {
         const { threadId, commentId, replyId } = request.params;
         const { id: owner } = request.auth.credentials;
 
-        const deleteReplyUseCase = this._container.getInstance(
-            DeleteReplyUseCase.name,
-        );
+        const deleteReplyUseCase = this._container.getInstance(DeleteReplyUseCase.name);
         await deleteReplyUseCase.execute({
             threadId,
             commentId,
@@ -144,7 +132,7 @@ class ThreadsHandler extends Handler {
         return response;
     }
 
-    async likeHandler(request, h) {
+    async like(request, h) {
         const { id: owner } = request.auth.credentials;
 
         const likeUseCase = this._container.getInstance(LikeUseCase.name);
