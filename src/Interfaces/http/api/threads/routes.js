@@ -2,7 +2,7 @@ const routes = (handler) => [
     {
         method: 'POST',
         path: '/threads',
-        handler: handler.postThreadHandler,
+        handler: handler.postThread,
         options: {
             auth: 'forumapi_jwt',
         },
@@ -10,7 +10,7 @@ const routes = (handler) => [
     {
         method: 'POST',
         path: '/threads/{threadId}/comments',
-        handler: handler.postCommentHandler,
+        handler: handler.postComment,
         options: {
             auth: 'forumapi_jwt',
         },
@@ -18,7 +18,7 @@ const routes = (handler) => [
     {
         method: 'POST',
         path: '/threads/{threadId}/comments/{commentId}/replies',
-        handler: handler.postReplyHandler,
+        handler: handler.postReply,
         options: {
             auth: 'forumapi_jwt',
         },
@@ -26,12 +26,12 @@ const routes = (handler) => [
     {
         method: 'GET',
         path: '/threads/{threadId}',
-        handler: handler.getThreadByIdHandler,
+        handler: handler.getThreadById,
     },
     {
         method: 'DELETE',
         path: '/threads/{threadId}/comments/{commentId}',
-        handler: handler.deleteCommentByIdHandler,
+        handler: handler.deleteCommentById,
         options: {
             auth: 'forumapi_jwt',
         },
@@ -39,7 +39,7 @@ const routes = (handler) => [
     {
         method: 'DELETE',
         path: '/threads/{threadId}/comments/{commentId}/replies/{replyId}',
-        handler: handler.deleteReplyByIdHandler,
+        handler: handler.deleteReplyById,
         options: {
             auth: 'forumapi_jwt',
         },
@@ -47,7 +47,7 @@ const routes = (handler) => [
     {
         method: 'PUT',
         path: '/threads/{threadId}/comments/{commentId}/likes',
-        handler: handler.likeHandler,
+        handler: handler.like,
         options: {
             auth: 'forumapi_jwt',
         },
